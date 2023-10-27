@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>todolist</title>
+  </head>
+  <style>
+    .container {
+      border: 5px solid black;
+      width: 500px;
+      margin: auto;
+      text-align: center;
+    }
+    .todolist {
+      width: 300px;
+      padding: 20px;
+      text-align: left;
+      margin: auto;
+    }
+    .todolist li {
+      border: 1px solid gray;
+      border-radius: 5px;
+      padding: 10px 60px;
+      margin: 10px 0px;
+      position: relative;
+    }
+    .todolist li button {
+      position: absolute;
+      right: 10px;
+      bottom: 20px;
+    }
+
+    .addbtn {
+      line-height: 24px;
+    }
+    #inputvalue {
+      width: 200px;
+      padding: 5px 10px;
+    }
+    .addbtn {
+      padding: 5px 10px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1>ToDoList</h1>
+      <div class="add">
+        <input
+          type="text"
+          class="addinput"
+          id="addinput"
+          placeholder="請輸入代辦事項"
+        />
+        <button id="addbtn">新增</button>
+        <h3>應該要做的事</h3>
+        <ol class="todolist"></ol>
+      </div>
+    </div>
+    <script>
+      const btn = document.querySelector("#addbtn");
+      const addinput = document.querySelector(".addinput");
+      const list = document.querySelector(".todolist");
+      const todolist = () => {
+        if (addinput.value) {
+          const newli = document.createElement("li");
+          newli.innerHTML = `
+          <label class="newlist">
+            <p>${escape(addinput.value)}</p>
+          </label>
+          <button class="deletebtn">刪除</button>
+          `;
+          list.append(newli);
+          addinput.value = "";
+
+          const deletebtn = newli.querySelector(".deletebtn");
+          deletebtn.addEventListener("click", (e) => {
+            newli.remove(e.target);
+          });
+        }
+      };
+      btn.addEventListener("click", todolist);
+    </script>
+  </body>
+</html>

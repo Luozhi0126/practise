@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const target = {
+        get foo() {
+          return this.bar;
+        },
+        bar: 3,
+      };
+
+      const handler = {
+        get(target, key, receiver) {
+          if (key === "bar") return 2;
+          console.log("Reflect.get", Reflect.get(target, key, receiver));
+          console.log("target[key]", target[key]);
+        },
+      };
+      let obj = new Proxy(target, handler);
+      console.log(obj.bar);
+      obj.foo;
+    </script>
+  </body>
+</html>
